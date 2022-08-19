@@ -75,7 +75,7 @@ function adminRegistration(req, res, next) {
     const profileImagePath = req.file.path;
 
 
-    console.log(profileImagePath)
+   
     const confirmationCode = "q2123@1vfd"
 
     // check if email is existed

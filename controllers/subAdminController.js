@@ -96,7 +96,7 @@ async function subAdminRegistration(req, res) {
             // hashing the password
 
 
-            const hashedPassword = await hash(subAdminPassword, 12)
+            const hashedPassword = await bcrypt.hash(subAdminPassword, 12)
             cloudinary.uploader.upload_stream({ folder: "sub-admin-images" },
 
                 (err, results) => {
