@@ -72,7 +72,7 @@ function adminRegistration(req, res, next) {
     const adminEmail = req.body.adminEmail;
     const password = req.body.password;
     const mainAdminAuthenticationCode = req.body.mainAdminAuthenticationCode;
-    const profileImagePath = req.file.buffer;
+    const profileImagePath = req.file;
 
 
 
@@ -97,7 +97,7 @@ function adminRegistration(req, res, next) {
                             adminName: adminName,
                             adminEmail: adminEmail,
                             password: hashedPassword,
-                            profileImagePath: imagePath,
+                            profileImagePath: imagePath.url,
 
                         })
 

@@ -79,107 +79,107 @@ function doctorsByLocationAndSpecalizationController(req, res) {
 
 async function doctorRegistrationController(req, res) {
 
-    // let profileImagePath = req.files.profileImagePath[0]
-    // let certificateImagePath = req.files.certificateImagePath[0]
+    let profileImagePath = req.files.profileImagePath[0]
+    let certificateImagePath = req.files.certificateImagePath[0]
 
-    // let clinicImagesPath = []
+    let clinicImagesPath = []
 
-    // req.files.clinicImagesPath.forEach(element => clinicImagesPath.push(element.buffer));
-
-
-    // let isEmailExisted = await doctorModel.find({ doctorEmail: req.body.doctorEmail })
-    // if (!isEmailExisted) {
+    req.files.clinicImagesPath.forEach(element => clinicImagesPath.push(element.buffer));
 
 
-    //     cloudinary.uploader.upload_stream({
-    //         folder: 'doctor-images/profile-pics'
-    //     }, (err, profileImagePath) => {
-
-    //         cloudinary.uploader.upload_stream({
-    //             folder: 'doctor-images/certificate-pics'
-    //         }, (err, certificateImagePath) => {
+    let isEmailExisted = await doctorModel.find({ doctorEmail: req.body.doctorEmail })
+    if (!isEmailExisted) {
 
 
-    //             cloudinary.uploader.upload_stream({
-    //                 folder: 'doctor-images/clinic-pics'
-    //             }, (err, FirstCinicImagesPath) => {
+        cloudinary.uploader.upload_stream({
+            folder: 'doctor-images/profile-pics'
+        }, (err, profileImagePath) => {
 
-    //                 let clinicImagesPathObject = []
-
-    //                 clinicImagesPathObject.push({ "image": FirstCinicImagesPath.url })
-
-    //                 cloudinary.uploader.upload_stream({
-    //                     folder: 'doctor-images/clinic-pics'
-    //                 }, (err, SecondCinicImagesPath) => {
+            cloudinary.uploader.upload_stream({
+                folder: 'doctor-images/certificate-pics'
+            }, (err, certificateImagePath) => {
 
 
+                cloudinary.uploader.upload_stream({
+                    folder: 'doctor-images/clinic-pics'
+                }, (err, FirstCinicImagesPath) => {
 
+                    let clinicImagesPathObject = []
 
-    //                     clinicImagesPathObject.push({ "image": SecondCinicImagesPath.url })
+                    clinicImagesPathObject.push({ "image": FirstCinicImagesPath.url })
 
-    //                     cloudinary.uploader.upload_stream({
-    //                         folder: 'doctor-images/clinic-pics'
-    //                     }, (err, thirdClinicImagePath) => {
-
-
-
-    //                         clinicImagesPathObject.push({ "image": thirdClinicImagePath.url })
-
-    //                         const doctor = new doctorModel({
-    //                             doctorName: req.body.doctorName,
-    //                             doctorEmail: req.body.doctorEmail,
-    //                             password: req.body.password,
-    //                             doctorGender: req.body.doctorGender,
-    //                             doctorSpecialization: req.body.doctorSpecialization,
-    //                             doctorLocation: req.body.doctorLocation,
-    //                             doctorClinics: req.body.doctorClinics,
-    //                             profileImagePath: profileImagePath.url,
-    //                             certificateImagePath: certificateImagePath.url,
-    //                             clinicImagesPath: clinicImagesPathObject,
-    //                             fees: req.body.fees,
-    //                             entity: req.body.entity,
-    //                             clinicWaitingTime: req.body.clinicWaitingTime,
-
-    //                         })
+                    cloudinary.uploader.upload_stream({
+                        folder: 'doctor-images/clinic-pics'
+                    }, (err, SecondCinicImagesPath) => {
 
 
 
 
+                        clinicImagesPathObject.push({ "image": SecondCinicImagesPath.url })
 
-    //                     }).end(clinicImagesPath[2])
-
-
-
-    //                 }).end(clinicImagesPath[1])
-
-
-    //             }).end(clinicImagesPath[0])
+                        cloudinary.uploader.upload_stream({
+                            folder: 'doctor-images/clinic-pics'
+                        }, (err, thirdClinicImagePath) => {
 
 
 
-    //         }).end(certificateImagePath.buffer)
-    //     }).end(profileImagePath.buffer)
+                            clinicImagesPathObject.push({ "image": thirdClinicImagePath.url })
 
-    //     doctor.save().then(result => {
-    //         res.status(200).json({
-    //             message: "succssess",
-    //             body: result
-    //         })
-    //     }).catch(e => res.status(400).json({
-    //         message: "there is an error",
-    //         body: e
-    //     }))
-    // }
-    // else {
-    //     res.status(400).json({
-    //         message: "this email is aleady exists"
-    //     })
-    // }
+                            const doctor = new doctorModel({
+                                doctorName: req.body.doctorName,
+                                doctorEmail: req.body.doctorEmail,
+                                password: req.body.password,
+                                doctorGender: req.body.doctorGender,
+                                doctorSpecialization: req.body.doctorSpecialization,
+                                doctorLocation: req.body.doctorLocation,
+                                doctorClinics: req.body.doctorClinics,
+                                profileImagePath: profileImagePath.url,
+                                certificateImagePath: certificateImagePath.url,
+                                clinicImagesPath: clinicImagesPathObject,
+                                fees: req.body.fees,
+                                entity: req.body.entity,
+                                clinicWaitingTime: req.body.clinicWaitingTime,
+
+                            })
 
 
 
 
-    doctorGenerator(res)
+
+                        }).end(clinicImagesPath[2])
+
+
+
+                    }).end(clinicImagesPath[1])
+
+
+                }).end(clinicImagesPath[0])
+
+
+
+            }).end(certificateImagePath.buffer)
+        }).end(profileImagePath.buffer)
+
+        doctor.save().then(result => {
+            res.status(200).json({
+                message: "succssess",
+                body: result
+            })
+        }).catch(e => res.status(400).json({
+            message: "there is an error",
+            body: e
+        }))
+    }
+    else {
+        res.status(400).json({
+            message: "this email is aleady exists"
+        })
+    }
+
+
+
+
+    //doctorGenerator(res)
 
 
 }
