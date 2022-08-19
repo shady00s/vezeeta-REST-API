@@ -87,17 +87,21 @@ function adminRegistration(req, res, next) {
 
                 bcrypt.hash(password, 12).then(hashedPassword => {
 
-                    cloudinary.uploader.upload(profileImagePath, { folder: "admin-images" }, function (error, result) { console.log(result, error); }).then(imagePath => {
+                    cloudinary.uploader.upload_stream({ folder: "admin-images" }, function (error, result) {
+                        if (err) {
+                            res.status(500).json({
+                                message: "there is error in image",
+                                body: err
+                            })
+                        }
 
-
-                        // hashing the password
-
+                        
 
                         const adminData = new AdminModel({
                             adminName: adminName,
                             adminEmail: adminEmail,
                             password: hashedPassword,
-                            profileImagePath: imagePath.url,
+                            profileImagePath: result.url,
 
                         })
 
@@ -117,11 +121,10 @@ function adminRegistration(req, res, next) {
                         }))
 
 
-
-                    }
-
-
-                    )
+                        
+                        
+                        
+                    })
 
                 })
 
