@@ -96,7 +96,7 @@ function adminRegistration(req, res, next) {
                         }
 
                         
-
+                        
                         const adminData = new AdminModel({
                             adminName: adminName,
                             adminEmail: adminEmail,
