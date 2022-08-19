@@ -5,7 +5,7 @@ import userModel from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import cloudinary from '../utils/cloudinaryConfig.js';
-import dotenv  from "dotenv"
+import dotenv from "dotenv"
 dotenv.config()
 
 
@@ -72,10 +72,10 @@ function adminRegistration(req, res, next) {
     const adminEmail = req.body.adminEmail;
     const password = req.body.password;
     const mainAdminAuthenticationCode = req.body.mainAdminAuthenticationCode;
-    const profileImagePath = req.file.path;
+    const profileImagePath = req.file.buffer;
 
 
-   
+
     const confirmationCode = "q2123@1vfd"
 
     // check if email is existed
@@ -232,7 +232,7 @@ function deleteDrByAdmin(req, res) {
 
 
 
-export  { doctorsCollection, usersCollection, adminLogin, adminRegistration, adminProfile, getPendingDoctors, adminEditDoctor, getDeletedDoctors ,deleteDrByAdmin}
+export { doctorsCollection, usersCollection, adminLogin, adminRegistration, adminProfile, getPendingDoctors, adminEditDoctor, getDeletedDoctors, deleteDrByAdmin }
 
 
 
