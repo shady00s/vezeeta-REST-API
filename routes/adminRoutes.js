@@ -24,6 +24,8 @@ adminRoutes.put('/admin-delete-doctor/:id', AdminVerifyToken, deleteDrByAdmin)
 
 // admin routing
 adminRoutes.get('/admin-login', adminLogin)
+adminRoutes.post('/angular-admin-login', adminLogin)
+
 adminRoutes.put('/admin-register', upload.single('profileImagePath'), adminRegistration)
 adminRoutes.get('/admin-all-users', AdminVerifyToken, usersCollection)
 adminRoutes.get('/admin-all-doctors', AdminVerifyToken, doctorsCollection)
