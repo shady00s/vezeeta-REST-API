@@ -16,5 +16,7 @@ doctorRoutes.put('/doctor-edit-profile/:id', DoctorVerifyToken, doctorEditContro
 doctorRoutes.put('/doctor-register', upload.fields([{ name: "profileImagePath", maxCount: 1 }, { name: "certificateImagePath", maxCount: 1 }, { name: "clinicImagesPath", maxCount: 3 }]), doctorRegistrationController)
 doctorRoutes.get('/doctor-login', doctorLogin)
 
+doctorRoutes.post('/angular-doctor-login', doctorLogin)
+
 
 export default doctorRoutes
