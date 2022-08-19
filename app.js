@@ -4,14 +4,14 @@ import adminRoutes from './routes/adminRoutes.js';
 import doctorRoutes from './routes/doctorRoutes.js';
 import subAminRoutes from './routes/subAdminRoutes.js';
 import UserRoutes from './routes/userRoutes.js';
-import cors from 'cors';
+//import cors from 'cors';
 import dotenv  from "dotenv"
 dotenv.config();
 
 const app = express()
 
 
-app.use(cors());
+//app.use(cors());
 app.use(express.json())
 //app.use(express.urlencoded({ extended: true }));
 
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
         'Access-Control-Allow-Methods',
         'OPTIONS, GET, POST, PUT, PATCH, DELETE'
     );
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', "Origin, X-Requested, Content-Type, Accept Authorization");
     res.setHeader('Access-Control-Allow-Credentials',true)
     next();
 });
