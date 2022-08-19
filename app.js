@@ -28,8 +28,8 @@ app.use((req, res, next) => {
         'Access-Control-Allow-Methods',
         'OPTIONS, GET, POST, PUT, PATCH, DELETE'
     );
-    res.setHeader('Access-Control-Allow-Headers', "Origin, X-Requested, Content-Type, Accept Authorization");
-    res.setHeader('Access-Control-Allow-Credentials',true)
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+    //res.setHeader('Access-Control-Allow-Credentials',true)
     next();
 });
 
