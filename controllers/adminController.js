@@ -97,7 +97,7 @@ function adminRegistration(req, res, next) {
                             adminName: adminName,
                             adminEmail: adminEmail,
                             password: hashedPassword,
-                            profileImagePath: profileImagePath,
+                            profileImagePath: imagePath,
 
                         })
 
