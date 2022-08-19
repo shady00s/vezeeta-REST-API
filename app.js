@@ -40,7 +40,7 @@ app.use('/', doctorRoutes)
 app.use('/', adminRoutes)
 app.use('/', UserRoutes)
 app.use('/', subAminRoutes)
-mongoose.connect(process.env.MONGO_DB_URL, { useNewUrlParser: true }).then(() => app.listen(3000), console.log("connected to database and server")).catch(e => console.log(e))
+mongoose.connect(process.env.MONGO_DB_URL, { useNewUrlParser: true }).then(() => app.listen(process.env.PORT||3000), console.log("connected to database and server")).catch(e => console.log(e))
 
 
 
