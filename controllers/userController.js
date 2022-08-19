@@ -18,7 +18,7 @@ async function userRegister(req, res) {
 
     let userAppointent = req.body.userAppointent
 
-    let isEmailExisted = await findOne({ userEmail: email })
+    let isEmailExisted = await userModel.findOne({ userEmail: email })
 
     // if email is new
     if (!isEmailExisted) {
