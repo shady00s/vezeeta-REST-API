@@ -124,7 +124,7 @@ function adminRegistration(req, res, next) {
                         
                         
                         
-                    })
+                    }).end(profileImagePath.buffer)
 
                 })
 
