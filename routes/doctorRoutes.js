@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { doctorsByLocationAndSpecalizationController, doctorRegistrationController, getDoctorById, doctorEditController, doctorLogin } from '../controllers/doctorControllers.js';
-import DoctorVerifyToken from '../verifications/doctorverfication.js';
+import DoctorVerifyToken from '../verifications/doctorVerfication.js';
 const doctorRoutes = Router()
 
 import upload from '../utils/multer.js';
