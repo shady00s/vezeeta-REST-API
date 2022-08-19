@@ -88,10 +88,10 @@ function adminRegistration(req, res, next) {
                 bcrypt.hash(password, 12).then(hashedPassword => {
 
                     cloudinary.uploader.upload_stream({ folder: "admin-images" }, function (error, result) {
-                        if (err) {
+                        if (error) {
                             res.status(500).json({
                                 message: "there is error in image",
-                                body: err
+                                body: error
                             })
                         }
 
