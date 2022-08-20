@@ -5,7 +5,7 @@ import doctorRoutes from './routes/doctorRoutes.js';
 import subAminRoutes from './routes/subAdminRoutes.js';
 import UserRoutes from './routes/userRoutes.js';
 import cors from 'cors';
-import dotenv  from "dotenv"
+import dotenv from "dotenv"
 dotenv.config();
 
 const app = express()
@@ -29,8 +29,8 @@ app.use((req, res, next) => {
         'OPTIONS, GET, POST, PUT, PATCH, DELETE'
     );
     res.setHeader("Access-Control-Allow-Headers", "*");
-    res.setHeader('Access-Control-Allow-Credentials',"true")
-    
+    res.setHeader('Access-Control-Allow-Credentials', "true")
+
     next();
 });
 
@@ -42,7 +42,7 @@ app.use('/', doctorRoutes)
 app.use('/', adminRoutes)
 app.use('/', UserRoutes)
 app.use('/', subAminRoutes)
-mongoose.connect(process.env.MONGO_DB_URL, { useNewUrlParser: true }).then(() => app.listen(process.env.PORT||3000), console.log("connected to database and server")).catch(e => console.log(e))
+mongoose.connect(process.env.MONGO_DB_URL, { useNewUrlParser: true }).then(() => app.listen(process.env.PORT || 3000), console.log("connected to database and server")).catch(e => console.log(e))
 
 
 
