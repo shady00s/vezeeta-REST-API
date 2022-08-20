@@ -20,7 +20,7 @@ subAminRoutes.get('/sub-admin-profile-doctor/:id', upload.single('profileImagePa
 // sub admin routing
 subAminRoutes.get('/sub-admin-login', subAdminLogin)
 subAminRoutes.post('/angular-sub-admin-login', subAdminLogin)
-subAminRoutes.put('/sub-admin-register', upload.single('subAdminprofileImagePath'), subAdminRegistration)
+subAminRoutes.post('/sub-admin-register', upload.single('subAdminprofileImagePath'), subAdminRegistration)
 subAminRoutes.get('/sub-admin-profile/:id', SubAdminVerifyToken, subAdminProfile)
 
 

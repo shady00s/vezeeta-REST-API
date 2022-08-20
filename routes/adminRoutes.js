@@ -17,16 +17,16 @@ adminRoutes.get('/admin-deleted-doctors', AdminVerifyToken, getDeletedDoctors)
 adminRoutes.get('/admin-search-doctors', AdminVerifyToken, adminDoctorSearchController)
 adminRoutes.get('/admin-doctor-profile/:id', AdminVerifyToken, getDoctorById)
 
-adminRoutes.put('/admin-edit-doctor/:id', upload.single('profileImagePath'), AdminVerifyToken, adminEditDoctor)
+adminRoutes.post('/admin-edit-doctor/:id', upload.single('profileImagePath'), AdminVerifyToken, adminEditDoctor)
 
-adminRoutes.put('/admin-delete-doctor/:id', AdminVerifyToken, deleteDrByAdmin)
+adminRoutes.post('/admin-delete-doctor/:id', AdminVerifyToken, deleteDrByAdmin)
 
 
 // admin routing
 adminRoutes.get('/admin-login', adminLogin)
 adminRoutes.post('/angular-admin-login', adminLogin)
 
-adminRoutes.put('/admin-register', upload.single('profileImagePath'), adminRegistration)
+adminRoutes.post('/admin-register', upload.single('profileImagePath'), adminRegistration)
 adminRoutes.get('/admin-all-users', AdminVerifyToken, usersCollection)
 adminRoutes.get('/admin-all-doctors', AdminVerifyToken, doctorsCollection)
 adminRoutes.get('/admin-profile/:id', AdminVerifyToken, adminProfile)

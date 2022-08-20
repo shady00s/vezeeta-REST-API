@@ -12,8 +12,8 @@ doctorRoutes.get('/doctors', doctorsByLocationAndSpecalizationController)
 
 doctorRoutes.get('/doctor-profile/:id', DoctorVerifyToken, getDoctorById)
 
-doctorRoutes.put('/doctor-edit-profile/:id', DoctorVerifyToken, doctorEditController)
-doctorRoutes.put('/doctor-register', upload.fields([{ name: "profileImagePath", maxCount: 1 }, { name: "certificateImagePath", maxCount: 1 }, { name: "clinicImagesPath", maxCount: 3 }]), doctorRegistrationController)
+doctorRoutes.post('/doctor-edit-profile/:id', DoctorVerifyToken, doctorEditController)
+doctorRoutes.post('/doctor-register', upload.fields([{ name: "profileImagePath", maxCount: 1 }, { name: "certificateImagePath", maxCount: 1 }, { name: "clinicImagesPath", maxCount: 3 }]), doctorRegistrationController)
 doctorRoutes.get('/doctor-login', doctorLogin)
 
 doctorRoutes.post('/angular-doctor-login', doctorLogin)
