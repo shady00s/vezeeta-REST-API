@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const DoctorModel = mongoose.Schema({
     doctorName: {
-        type: Array,
+        type: Object,
         require: true,
     },
     doctorEmail: {
@@ -19,7 +19,7 @@ const DoctorModel = mongoose.Schema({
         require: true
     },
     doctorSpecialization: {
-        type: Array,
+        type: Object,
         require: true,
     },
 

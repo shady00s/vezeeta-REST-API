@@ -81,7 +81,7 @@ function doctorGenerator(res) {
 
 
 
-    for (let index = 0; index < 20000; index++) {
+    for (let index = 0; index < 25000; index++) {
         let genderType = gender[Math.floor(Math.random() * gender.length)]
 
         let MaleName = Math.floor(Math.random() * MalefirstName.length)
@@ -95,12 +95,8 @@ function doctorGenerator(res) {
         let cityRandomSec = Math.floor(Math.random() * city.length)
 
         docsTestList.push(docObject = {
-            doctorName: [
-                { arabicName: genderType === "male" ? maleArabicNames[MaleName] + " " + maleArabicNames[secName] : (FemaleArabicNames[femaleName] + " " + maleArabicNames[secName]) },
+            doctorName: { arabicName: genderType === "male" ? maleArabicNames[MaleName] + " " + maleArabicNames[secName] : (FemaleArabicNames[femaleName] + " " + maleArabicNames[secName]) ,englishName: genderType === "male" ? MalefirstName[MaleName] + " " + MalefirstName[secName] : FemaleNames[femaleName] + " " + MalefirstName[secName] },
 
-                { englishName: genderType === "male" ? MalefirstName[MaleName] + " " + MalefirstName[secName] : FemaleNames[femaleName] + " " + MalefirstName[secName] },
-
-            ],
             doctorEmail: emails[Math.floor(Math.random() * emails.length)],
             doctorPassword: password[Math.floor(Math.random() * password.length)] + Math.floor(Math.random() * 200),
             doctorGender: genderType,
@@ -115,10 +111,9 @@ function doctorGenerator(res) {
             doctorPadges: doctorPadges[Math.floor(Math.random() * doctorPadges.length)],
             profileStatus: status[Math.floor(Math.random() * status.length)],
             entity: entities[Math.floor(Math.random() * entities.length)],
-            doctorSpecialization: [
-                { specialization_english: specialization[specializationIndex] },
-                { specialization_arabic: arabicSpecialization[specializationIndex] },
-            ],
+            doctorSpecialization: { specialization_english: specialization[specializationIndex] ,specialization_arabic: arabicSpecialization[specializationIndex] },
+                
+        
 
             certificateImagePath: certificateImages[Math.floor(Math.random() * certificateImages.length)],
             doctorClinics: [
