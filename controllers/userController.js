@@ -5,7 +5,7 @@ import doctorModel from '../models/doctorModel.js'
 
 import cloudinary from '../utils/cloudinaryConfig.js'
 import { json } from 'express'
-import dotenv  from "dotenv"
+import dotenv from "dotenv"
 dotenv.config()
 
 async function userRegister(req, res) {
@@ -137,20 +137,20 @@ function userEditProfile(req, res) {
 }
 
 
-function userAddAppointment(req,res){
+function userAddAppointment(req, res) {
     const user_id = req.params.id
     const userAppointments = req.body.userAppointments
-    userModel.findByIdAndUpdate({_id:user_id}, { $push: {userAppointments:userAppointments }}, { new: true }).then(result =>
+    userModel.findByIdAndUpdate(user_id, { $push: { userAppointments: userAppointments } }, { new: true }).then(result =>
         res.status(200).json({
             message: "succssess",
             body: result
         })).catch(e => {
             res.status(400).json({
                 message: "there is error in adding appointment",
-                body:e
+                body: e
             })
         })
-    
+
 }
 
-export  { userRegister, userLogin, userProfile,userEditProfile, userAddAppointment }
+export { userRegister, userLogin, userProfile, userEditProfile, userAddAppointment }
