@@ -10,7 +10,7 @@ import upload from '../utils/multer.js';
 
 
 UserRoutes.post('/user-register', upload.single('userProfileImagePath'), userRegister)
-UserRoutes.get('/user-login', userLogin)
+UserRoutes.post('/user-login', userLogin)
 UserRoutes.get('/user-doctor-search', searchController)
 
 
