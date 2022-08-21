@@ -95,7 +95,7 @@ function userProfile(req, res) {
     ).catch(e => res.json({ body: e }))
 }
 
-function userEditProfileOrAddAppointment(req, res) {
+function userEditProfile(req, res) {
     const user_id = req.params.id
     const userName = req.body.userName
     const userEmail = req.body.userEmail
@@ -136,4 +136,19 @@ function userEditProfileOrAddAppointment(req, res) {
 
 }
 
-export  { userRegister, userLogin, userProfile, userEditProfileOrAddAppointment }
+
+function userAddAppointment(req,res){
+    const userAppointments = req.body.userAppointments
+    userModel.findByIdAndUpdate(user_id, {userAppointments:userAppointments}, { new: true }).then(result =>
+        res.status(200).json({
+            message: "succssess",
+            body: result
+        })).catch(e => {
+            res.status(400).json({
+                message: "there is error in registration"
+            })
+        })
+    
+}
+
+export  { userRegister, userLogin, userProfile,userEditProfile, userAddAppointment }
