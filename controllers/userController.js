@@ -140,7 +140,7 @@ function userEditProfile(req, res) {
 function userAddAppointment(req,res){
     const user_id = req.params.id
     const userAppointments = req.body.userAppointments
-    userModel.findByIdAndUpdate({id:user_id}, { $push: {userAppointments:userAppointments }}, { new: true }).then(result =>
+    userModel.findByIdAndUpdate({_id:user_id}, { $push: {userAppointments:userAppointments }}, { new: true }).then(result =>
         res.status(200).json({
             message: "succssess",
             body: result
