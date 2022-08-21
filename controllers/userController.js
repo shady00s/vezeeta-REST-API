@@ -146,7 +146,8 @@ function userAddAppointment(req,res){
             body: result
         })).catch(e => {
             res.status(400).json({
-                message: "there is error in registration"
+                message: "there is error in adding appointment",
+                body:e
             })
         })
     
