@@ -139,7 +139,7 @@ async function doctorRegistrationController(req, res) {
                                 fees: req.body.fees,
                                 entity: req.body.entity,
                                 clinicWaitingTime: req.body.clinicWaitingTime,
-
+                                doctorAppointments: req.body.doctorAppointments
                             })
 
 
