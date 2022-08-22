@@ -87,7 +87,7 @@ function adminRegistration(req, res, next) {
 
                 bcrypt.hash(password, 12).then(hashedPassword => {
 
-                    cloudinary.uploader.upload_stream({ folder: "admin-images" },  (error, result) =>{
+                    cloudinary.uploader.upload_stream({ folder: "admin-images" }, (error, result) => {
                         if (error) {
                             res.status(500).json({
                                 message: "there is error in image",
@@ -95,8 +95,8 @@ function adminRegistration(req, res, next) {
                             })
                         }
 
-                        
-                        
+
+
                         const adminData = new AdminModel({
                             adminName: adminName,
                             adminEmail: adminEmail,
@@ -121,9 +121,9 @@ function adminRegistration(req, res, next) {
                         }))
 
 
-                        
-                        
-                        
+
+
+
                     }).end(profileImagePath.buffer)
 
                 })
@@ -218,12 +218,12 @@ function deleteDrByAdmin(req, res) {
     const doctorEdited = {
         profileStatus: req.body.profileStatus
     }
-    doctorModel.findByIdAndUpdate({ _id: id }, doctorEdited, { new: true }).then(result => {
+    doctorModel.findByIdAndDelete({ _id: id }, doctorEdited, { new: true }).then(result => {
         res.status(200).json({
             message: "succssess",
             body: result
         })
-    }).catch(e=>  res.status(400).json({
+    }).catch(e => res.status(400).json({
         message: "failed",
         body: e
     }))
