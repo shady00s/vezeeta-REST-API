@@ -18,6 +18,10 @@ function searchController(req, res) {
 
 
 
+
+
+
+
     if (Object.keys(req.query).includes('page') && Object.keys(req.query).length === 1) {
         doctorModel.find({
             profileStatus: "accepted",
@@ -45,14 +49,12 @@ function searchController(req, res) {
         doctorModel.find({
 
             profileStatus: "accepted",
-            doctorName: { $elemMatch: { englishName: { $regex: doctorNameEnglish, $options: "i" } } },
-
+            "doctorName.englishName": { $regex: doctorNameEnglish, $options: "i" },
         }).countDocuments().then(count => {
             totalDoctors = count;
             return doctorModel.find({
                 profileStatus: "accepted",
-                doctorName: { $elemMatch: { englishName: { $regex: doctorNameEnglish, $options: "i" } } },
-
+                "doctorName.englishName": { $regex: doctorNameEnglish, $options: "i" },
             }).skip((page - 1) * pageLimit).limit(pageLimit);
         }).then(result => {
             res.status(200).json({
@@ -71,15 +73,13 @@ function searchController(req, res) {
         doctorModel.find({
 
             profileStatus: "accepted",
-            doctorName: { $elemMatch: { arabicName: { $regex: doctorNameArabic, $options: "i" } } }
-
+            "doctorName.arabicName": { $regex: doctorNameEnglish, $options: "i" },
         }).countDocuments().then(count => {
             totalDoctors = count;
             return doctorModel.find({
 
                 profileStatus: "accepted",
-                doctorName: { $elemMatch: { arabicName: { $regex: doctorNameArabic, $options: "i" } } }
-
+                "doctorName.arabicName": { $regex: doctorNameEnglish, $options: "i" },
             }).skip((page - 1) * pageLimit).limit(pageLimit);
         }).then(result => {
             res.status(200).json({
@@ -100,14 +100,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 doctorGender: doctorGender, doctorLocation: doctorLocation,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: -1 });
             }).then(result => {
@@ -129,14 +129,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 doctorGender: doctorGender, doctorLocation: doctorLocation,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: 1 });
             }).then(result => {
@@ -157,14 +157,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 doctorGender: doctorGender, doctorLocation: doctorLocation,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit);
             }).then(result => {
@@ -188,14 +188,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 entity: doctorEntity,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    entity: doctorEntity, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    entity: doctorEntity, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: -1 });;
             }).then(result => {
@@ -216,14 +216,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 entity: doctorEntity,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    entity: doctorEntity, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    entity: doctorEntity, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: 1 });
             }).then(result => {
@@ -243,14 +243,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 entity: doctorEntity,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    entity: doctorEntity, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    entity: doctorEntity, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit);
             }).then(result => {
@@ -277,14 +277,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 doctorGender: doctorGender,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    doctorGender: doctorGender, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    doctorGender: doctorGender, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: -1 });
             }).then(result => {
@@ -305,14 +305,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 doctorGender: doctorGender,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    doctorGender: doctorGender, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    doctorGender: doctorGender, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: 1 });
             }).then(result => {
@@ -332,14 +332,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 doctorGender: doctorGender,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    doctorGender: doctorGender, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    doctorGender: doctorGender, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit);
             }).then(result => {
@@ -365,14 +365,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 doctorLocation: doctorLocation,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: -1 });
             }).then(result => {
@@ -392,14 +392,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 doctorLocation: doctorLocation,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: 1 });
             }).then(result => {
@@ -419,14 +419,14 @@ function searchController(req, res) {
 
                 profileStatus: "accepted",
                 doctorLocation: doctorLocation,
-                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
 
-                    doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
+                    doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }]
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit);
             }).then(result => {
@@ -449,7 +449,7 @@ function searchController(req, res) {
             doctorModel.find({
 
                 profileStatus: "accepted",
-                entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }],
+                entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }],
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
@@ -475,7 +475,7 @@ function searchController(req, res) {
             doctorModel.find({
 
                 profileStatus: "accepted",
-                entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }],
+                entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }],
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
@@ -501,7 +501,7 @@ function searchController(req, res) {
             doctorModel.find({
 
                 profileStatus: "accepted",
-                entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }],
+                entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }],
 
             }).countDocuments().then(count => {
                 totalDoctors = count;
@@ -539,7 +539,7 @@ function searchController(req, res) {
                         {
 
                             $or: [
-                                { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  },
+                                { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish },
                                 { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }
                             ]
 
@@ -577,7 +577,7 @@ function searchController(req, res) {
                             {
 
                                 $or: [
-                                    { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  },
+                                    { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish },
                                     { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }
                                 ]
 
@@ -629,7 +629,7 @@ function searchController(req, res) {
                         {
                             $and: [{ entity: doctorEntity }, {
                                 $or: [
-                                    { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  },
+                                    { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish },
                                     { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }
                                 ]
 
@@ -639,7 +639,7 @@ function searchController(req, res) {
                         {
                             $and: [{ doctorGender: doctorGender }, {
                                 $or: [
-                                    { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  },
+                                    { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish },
                                     { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }
                                 ]
 
@@ -650,7 +650,7 @@ function searchController(req, res) {
                         {
                             $and: [{ doctorLocation: doctorLocation }, {
                                 $or: [
-                                    { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  },
+                                    { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish },
                                     { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }
                                 ]
 
@@ -688,7 +688,7 @@ function searchController(req, res) {
                             {
                                 $and: [{ entity: doctorEntity }, {
                                     $or: [
-                                        { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  },
+                                        { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish },
                                         { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }
                                     ]
 
@@ -698,7 +698,7 @@ function searchController(req, res) {
                             {
                                 $and: [{ doctorGender: doctorGender }, {
                                     $or: [
-                                        { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  },
+                                        { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish },
                                         { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }
                                     ]
 
@@ -709,7 +709,7 @@ function searchController(req, res) {
                             {
                                 $and: [{ doctorLocation: doctorLocation }, {
                                     $or: [
-                                        { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish  },
+                                        { 'doctorSpecialization.specialization_english': doctorSpecializationEnglish },
                                         { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }
                                     ]
 
