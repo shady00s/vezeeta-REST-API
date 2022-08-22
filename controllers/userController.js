@@ -1,11 +1,11 @@
 import userModel from '../models/userModel.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import doctorModel from '../models/doctorModel.js'
 
 import cloudinary from '../utils/cloudinaryConfig.js'
 import { json } from 'express'
 import dotenv from "dotenv"
+import doctorModel from '../models/doctorModel.js'
 dotenv.config()
 
 async function userRegister(req, res) {
@@ -140,17 +140,38 @@ function userEditProfile(req, res) {
 function userAddAppointment(req, res) {
     const user_id = req.params.id
     const userAppointments = req.body.userAppointments
-    userModel.findByIdAndUpdate(user_id, { $push: { userAppointments: userAppointments } }, { new: true }).then(result =>
+    const doctorData = req.body.doctorData
+
+    console.log(doctorData)
+
+    userModel.findOneAndUpdate(user_id, { $push: { userAppointments: userAppointments } }, { new: true }).then(result => {
+
+
         res.status(200).json({
             message: "succssess",
             body: result
-        })).catch(e => {
+        })
+        let editiedObject = {
+            clientID: result.id,
+            clientName: doctorData.clientName,
+            clientPhoneNumber: doctorData.clientPhoneNumber
+        }
+        doctorModel.findByIdAndUpdate(userAppointments.doctorID, { $push: { doctorAppointments: { editiedObject } } }, { new: true }).catch(e => {
+            res.status(400).json({
+                message: "there is error in adding appointment to doctor",
+                body: e
+            })
+        }).catch(e => {
             res.status(400).json({
                 message: "there is error in adding appointment",
                 body: e
             })
         })
 
+    })
+
+
 }
+
 
 export { userRegister, userLogin, userProfile, userEditProfile, userAddAppointment }

@@ -179,9 +179,13 @@ async function doctorRegistrationController(req, res) {
 
 
 
-    //doctorGenerator(res)
 
+}
 
+function generator(req,res){
+    
+
+    doctorGenerator(res)
 }
 
 function getDoctorById(req, res) {
@@ -245,7 +249,7 @@ function doctorEditController(req, res) {
     )
 }
 
-export { doctorsByLocationAndSpecalizationController, doctorRegistrationController, getDoctorById, doctorLogin, doctorEditController }
+export { doctorsByLocationAndSpecalizationController, doctorRegistrationController, getDoctorById, doctorLogin, doctorEditController,generator }
 
 
 

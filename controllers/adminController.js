@@ -218,7 +218,7 @@ function deleteDrByAdmin(req, res) {
     const doctorEdited = {
         profileStatus: req.body.profileStatus
     }
-    AdminModel.findByIdAndUpdate({ _id: id }, doctorEdited, { new: true }).then(result => {
+    doctorModel.findByIdAndUpdate({ _id: id }, doctorEdited, { new: true }).then(result => {
         res.status(200).json({
             message: "succssess",
             body: result
