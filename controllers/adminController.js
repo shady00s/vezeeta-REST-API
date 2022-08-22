@@ -223,7 +223,10 @@ function deleteDrByAdmin(req, res) {
             message: "succssess",
             body: result
         })
-    })
+    }).catch(e=>  res.status(400).json({
+        message: "failed",
+        body: e
+    }))
 }
 
 
