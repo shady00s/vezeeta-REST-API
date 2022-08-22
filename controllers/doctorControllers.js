@@ -122,7 +122,6 @@ async function doctorRegistrationController(req, res) {
                         }, (err, thirdClinicImagePath) => {
 
 
-
                             clinicImagesPathObject.push({ "image": thirdClinicImagePath.url })
 
                             const doctor = new doctorModel({
@@ -142,20 +141,11 @@ async function doctorRegistrationController(req, res) {
                                 doctorAppointments: req.body.doctorAppointments
                             })
 
-
-
-
-
                         }).end(clinicImagesPath[2])
-
-
 
                     }).end(clinicImagesPath[1])
 
-
                 }).end(clinicImagesPath[0])
-
-
 
             }).end(certificateImagePath.buffer)
         }).end(profileImagePath.buffer)
