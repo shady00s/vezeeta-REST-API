@@ -239,7 +239,8 @@ function doctorEditController(req, res) {
         profileImagePath: req.body.profileImagePath,
         clinicImagesPath: req.body.clinicImagesPath,
         fees: req.body.fees,
-        profileStatus: req.body.profileStatus
+        profileStatus: req.body.profileStatus,
+        doctorAppointments:req.body.doctorAppointments
     }
     doctorModel.findByIdAndUpdate(id, doctorUpdatedData, { new: true }).then(result =>
         res.status(200).json({
