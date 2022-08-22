@@ -122,6 +122,7 @@ async function doctorRegistrationController(req, res) {
                         }, (err, thirdClinicImagePath) => {
 
 
+                            
                             clinicImagesPathObject.push({ "image": thirdClinicImagePath.url })
 
                             const doctor = new doctorModel({
