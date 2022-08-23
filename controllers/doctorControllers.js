@@ -87,7 +87,7 @@ async function doctorRegistrationController(req, res) {
     req.files.clinicImagesPath.forEach(element => clinicImagesPath.push(element.buffer));
 
 
-    let isEmailExisted = await doctorModel.find({ doctorEmail: req.body.doctorEmail })
+    let isEmailExisted = await doctorModel.findOne({ doctorEmail: req.body.doctorEmail })
     if (!isEmailExisted) {
 
 
@@ -122,7 +122,7 @@ async function doctorRegistrationController(req, res) {
                         }, (err, thirdClinicImagePath) => {
 
 
-                            
+
                             clinicImagesPathObject.push({ "image": thirdClinicImagePath.url })
 
                             const doctor = new doctorModel({
@@ -173,8 +173,8 @@ async function doctorRegistrationController(req, res) {
 
 }
 
-function generator(req,res){
-    
+function generator(req, res) {
+
 
     doctorGenerator(res)
 }
@@ -231,7 +231,7 @@ function doctorEditController(req, res) {
         clinicImagesPath: req.body.clinicImagesPath,
         fees: req.body.fees,
         profileStatus: req.body.profileStatus,
-        doctorAppointments:req.body.doctorAppointments
+        doctorAppointments: req.body.doctorAppointments
     }
     doctorModel.findByIdAndUpdate(id, doctorUpdatedData, { new: true }).then(result =>
         res.status(200).json({
@@ -241,7 +241,7 @@ function doctorEditController(req, res) {
     )
 }
 
-export { doctorsByLocationAndSpecalizationController, doctorRegistrationController, getDoctorById, doctorLogin, doctorEditController,generator }
+export { doctorsByLocationAndSpecalizationController, doctorRegistrationController, getDoctorById, doctorLogin, doctorEditController, generator }
 
 
 

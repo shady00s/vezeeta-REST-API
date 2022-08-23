@@ -455,8 +455,7 @@ function searchController(req, res) {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
-
-                    entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, doctorSpecialization: { $elemMatch: { specialization_english: doctorSpecializationEnglish } },
+                    entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }],
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: -1 });
             }).then(result => {
@@ -481,8 +480,7 @@ function searchController(req, res) {
                 totalDoctors = count;
                 return doctorModel.find({
                     profileStatus: "accepted",
-
-                    entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, doctorSpecialization: { $elemMatch: { specialization_english: doctorSpecializationEnglish } },
+                    entity: doctorEntity, doctorGender: doctorGender, doctorLocation: doctorLocation, $or: [{ 'doctorSpecialization.specialization_english': doctorSpecializationEnglish }, { 'doctorSpecialization.specialization_english': doctorSpecializationArabic }],
 
                 }).skip((page - 1) * pageLimit).limit(pageLimit).sort({ doctorRating: 1 });
             }).then(result => {

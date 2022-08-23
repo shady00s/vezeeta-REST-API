@@ -70312,7 +70312,7 @@ const MalefirstName = [
     "Idrees",
     "Iqbal",
     "Iyad",
-    "Ja’far",
+    "Jafar",
     "Jalal",
     "Jaleel",
     "Jawad",
