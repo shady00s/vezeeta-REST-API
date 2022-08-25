@@ -140,7 +140,16 @@ async function doctorRegistrationController(req, res) {
                                 entity: req.body.entity,
                                 clinicWaitingTime: req.body.clinicWaitingTime,
                                 doctorAppointments: req.body.doctorAppointments
-                            })
+                            });
+                            doctor.save().then(result => {
+                                res.status(200).json({
+                                    message: "succssess",
+                                    body: result
+                                })
+                            }).catch(e => res.status(400).json({
+                                message: "there is an error",
+                                body: e
+                            }))
 
                         }).end(clinicImagesPath[2])
 
@@ -151,21 +160,14 @@ async function doctorRegistrationController(req, res) {
             }).end(certificateImagePath.buffer)
         }).end(profileImagePath.buffer)
 
-        doctor.save().then(result => {
-            res.status(200).json({
-                message: "succssess",
-                body: result
-            })
-        }).catch(e => res.status(400).json({
-            message: "there is an error",
-            body: e
-        }))
+
     }
     else {
         res.status(400).json({
             message: "this email is aleady exists"
         })
     }
+
 
 
 

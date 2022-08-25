@@ -74,14 +74,14 @@ const DoctorModel = mongoose.Schema({
     entity: {
         type: String,
         require: true
-    }, 
+    },
     doctorTitle: {
         type: String,
         require: true
     },
-    doctorAppointments:{
-        type:Array
-        ,default:[]
+    doctorAppointments: {
+        type: Array
+        , default: []
     }
 }, {
     timestamps: true,
