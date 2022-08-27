@@ -149,7 +149,7 @@ function userAddAppointment(req, res) {
 
 
 
-    userModel.findOneAndUpdate({ _id: user_id }, { $push: { userAppointments: { userAppointments } } }, { new: true }).then(result => {
+    userModel.findOneAndUpdate({ _id: user_id }, { $push: { userAppointments: userAppointments } }, { new: true }).then(result => {
 
 
         res.status(200).json({
@@ -161,7 +161,7 @@ function userAddAppointment(req, res) {
             clientName: doctorData.clientName,
             clientPhoneNumber: doctorData.clientPhoneNumber
         }
-        doctorModel.findByIdAndUpdate(userAppointments.doctorID, { $push: { doctorAppointments: { editiedObject } } }, { new: true }).catch(e => {
+        doctorModel.findByIdAndUpdate(userAppointments.doctorID, { $push: { doctorAppointments: editiedObject } }, { new: true }).catch(e => {
             res.status(400).json({
                 message: "there is error in adding appointment to doctor",
                 body: e
