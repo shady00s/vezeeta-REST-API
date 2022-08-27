@@ -146,9 +146,10 @@ function userAddAppointment(req, res) {
     const data = req.body.data
     const userAppointments = data.userAppointments
     const doctorData = data.doctorData
-    console.log(doctorData)
 
-    userModel.findOneAndUpdate(user_id, { $push: { userAppointments: userAppointments } }, { new: true }).then(result => {
+   
+
+    userModel.findOneAndUpdate({ _id: user_id }, { $push: { userAppointments: { userAppointments } } }, { new: true }).then(result => {
 
 
         res.status(200).json({
