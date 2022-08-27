@@ -22,29 +22,32 @@ async function userRegister(req, res) {
 
     // if email is new
     if (!isEmailExisted) {
-        let hashedPassword = await bcrypt.hash(userPassword, 12)
-
-        cloudinary.uploader.upload_stream({ folder: "users-images" }, (err, results) => {
-            const userReg = new userModel({
-                userName: name,
-                userPassword: hashedPassword,
-                userEmail: email,
-                userAge: userAge,
-                userProfileImagePath: results.url,
-                userAppointments: userAppointent
-            })
-
-            userReg.save().then(result => {
-                const token = jwt.sign({ _id: result._id }, process.env.USER_TOKEN_SECRET)
-
-                res.header('user-token', token).status(201).json({
-                    message: "succssess",
-                    body: result
+       
+        bcrypt.hash(userPassword, 12).then(hashedPassword => {
+            cloudinary.uploader.upload_stream({ folder: "users-images" }, (err, results) => {
+                const userReg = new userModel({
+                    userName: name,
+                    userPassword: hashedPassword,
+                    userEmail: email,
+                    userAge: userAge,
+                    userProfileImagePath: results.url,
+                    userAppointments: userAppointent
                 })
-            }
-            )
 
-        }).end(userProfileImagePath.buffer)
+                userReg.save().then(result => {
+                    const token = jwt.sign({ _id: result._id }, process.env.USER_TOKEN_SECRET)
+
+                    res.header('user-token', token).status(201).json({
+                        message: "succssess",
+                        body: result
+                    })
+                }
+                )
+
+            }).end(userProfileImagePath.buffer)
+        })
+
+
 
 
     } else {
@@ -142,7 +145,7 @@ function userAddAppointment(req, res) {
     const userAppointments = req.body.userAppointments
     const doctorData = req.body.doctorData
 
-    
+
     userModel.findOneAndUpdate(user_id, { $push: { userAppointments: userAppointments } }, { new: true }).then(result => {
 
 

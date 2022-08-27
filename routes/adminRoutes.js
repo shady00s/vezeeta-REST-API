@@ -17,7 +17,7 @@ adminRoutes.get('/admin-deleted-doctors', AdminVerifyToken, getDeletedDoctors)
 adminRoutes.get('/admin-search-doctors', AdminVerifyToken, adminDoctorSearchController)
 adminRoutes.get('/admin-doctor-profile/:id', AdminVerifyToken, getDoctorById)
 
-adminRoutes.post('/admin-edit-doctor/:id', upload.single('profileImagePath'), AdminVerifyToken, adminEditDoctor)
+adminRoutes.post('/admin-pend-doctor/:id',  AdminVerifyToken, adminEditDoctor)
 
 adminRoutes.post('/admin-delete-doctor/:id', AdminVerifyToken, deleteDrByAdmin)
 

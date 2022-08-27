@@ -124,32 +124,35 @@ async function doctorRegistrationController(req, res) {
 
 
                             clinicImagesPathObject.push({ "image": thirdClinicImagePath.url })
+                            bcyrpt.hash(req.body.password, 12).then(hashedPass => {
+                                const doctor = new doctorModel({
+                                    doctorName: req.body.doctorName,
+                                    doctorEmail: req.body.doctorEmail,
+                                    password: hashedPass,
+                                    doctorGender: req.body.doctorGender,
+                                    doctorSpecialization: req.body.doctorSpecialization,
+                                    doctorLocation: req.body.doctorLocation,
+                                    doctorClinics: req.body.doctorClinics,
+                                    profileImagePath: profileImagePath.url,
+                                    certificateImagePath: certificateImagePath.url,
+                                    clinicImagesPath: clinicImagesPathObject,
+                                    fees: req.body.fees,
+                                    entity: req.body.entity,
+                                    clinicWaitingTime: req.body.clinicWaitingTime,
+                                    doctorAppointments: req.body.doctorAppointments
+                                });
+                                doctor.save().then(result => {
+                                    res.status(200).json({
+                                        message: "succssess",
+                                        body: result
+                                    })
+                                }).catch(e => res.status(400).json({
+                                    message: "there is an error",
+                                    body: e
+                                }))
+                            })
 
-                            const doctor = new doctorModel({
-                                doctorName: req.body.doctorName,
-                                doctorEmail: req.body.doctorEmail,
-                                password: req.body.password,
-                                doctorGender: req.body.doctorGender,
-                                doctorSpecialization: req.body.doctorSpecialization,
-                                doctorLocation: req.body.doctorLocation,
-                                doctorClinics: req.body.doctorClinics,
-                                profileImagePath: profileImagePath.url,
-                                certificateImagePath: certificateImagePath.url,
-                                clinicImagesPath: clinicImagesPathObject,
-                                fees: req.body.fees,
-                                entity: req.body.entity,
-                                clinicWaitingTime: req.body.clinicWaitingTime,
-                                doctorAppointments: req.body.doctorAppointments
-                            });
-                            doctor.save().then(result => {
-                                res.status(200).json({
-                                    message: "succssess",
-                                    body: result
-                                })
-                            }).catch(e => res.status(400).json({
-                                message: "there is an error",
-                                body: e
-                            }))
+
 
                         }).end(clinicImagesPath[2])
 

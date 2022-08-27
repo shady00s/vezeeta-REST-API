@@ -52,18 +52,25 @@ function usersCollection(req, res) {
 function adminLogin(req, res) {
     const email = req.body.adminEmail || ''
     const password = req.body.password || ''
-    AdminModel.findOne({ adminEmail: email }).then(result =>
-        bcrypt.compare(password, result.password).then(compareResult => {
-            if (compareResult) {
-                const token = jwt.sign({ id: compareResult._id }, process.env.ADMIN_TOKEN_SECRET)
-                res.header('admin-token', token).status(200).json({
-                    message: "succsess",
-                    body: result
-                })
-            } else {
-                res.status(400).json({ message: 'wrong email' })
-            }
-        }).catch(e => res.status(400).json({ message: "there is an error", err: e }))
+    AdminModel.findOne({ adminEmail: email }).then(result => {
+        if (!result) {
+            bcrypt.compare(password, result.password).then(compareResult => {
+                if (compareResult) {
+                    const token = jwt.sign({ id: compareResult._id }, process.env.ADMIN_TOKEN_SECRET)
+                    res.header('admin-token', token).status(200).json({
+                        message: "succsess",
+                        body: result
+                    })
+                } else {
+                    res.status(400).json({ message: 'wrong password' })
+                }
+            }).catch(e => res.status(400).json({ message: "there is an error", err: e }))
+        } else {
+            res.status(400).json({ message: 'email already existed' })
+        }
+    }
+
+
     )
 }
 
@@ -87,7 +94,7 @@ function adminRegistration(req, res, next) {
 
                 bcrypt.hash(password, 12).then(hashedPassword => {
 
-                    cloudinary.uploader.upload_stream({ folder: "admin-images" },  (error, result) =>{
+                    cloudinary.uploader.upload_stream({ folder: "admin-images" }, (error, result) => {
                         if (error) {
                             res.status(500).json({
                                 message: "there is error in image",
@@ -95,8 +102,8 @@ function adminRegistration(req, res, next) {
                             })
                         }
 
-                        
-                        
+
+
                         const adminData = new AdminModel({
                             adminName: adminName,
                             adminEmail: adminEmail,
@@ -121,9 +128,9 @@ function adminRegistration(req, res, next) {
                         }))
 
 
-                        
-                        
-                        
+
+
+
                     }).end(profileImagePath.buffer)
 
                 })
@@ -204,12 +211,15 @@ function adminEditDoctor(req, res) {
     const doctorEdited = {
         profileStatus: req.body.profileStatus
     }
-    AdminModel.findByIdAndUpdate({ _id: id }, doctorEdited, { new: true }).then(result => {
-        res.status(200).json({
+    AdminModel.findByIdAndUpdate(id, doctorEdited, { new: true }).then(result => {
+        res.status(201).json({
             message: "succssess",
             body: result
         })
-    })
+    }).catch(e => res.status(401).json({
+        message: "faild",
+        body: e
+    }))
 }
 
 
@@ -219,12 +229,12 @@ function deleteDrByAdmin(req, res) {
         profileStatus: req.body.profileStatus
     }
     doctorModel.findByIdAndUpdate(id, doctorEdited, { new: true }).then(result => {
-        res.status(200).json({
+        res.status(201).json({
             message: "succssess",
             body: result
         })
-    }).catch(e=>  res.status(400).json({
-        message: "failed",
+    }).catch(e => res.status(401).json({
+        message: "faild",
         body: e
     }))
 }
