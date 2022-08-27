@@ -177,6 +177,42 @@ function userAddAppointment(req, res) {
 
 
 }
+function userRemoveAppointment(req, res) {
+    const user_id = req.params.id
+    const data = req.body.data
+    const userAppointments = data.userAppointments
+    const doctorData = data.doctorData
 
 
-export { userRegister, userLogin, userProfile, userEditProfile, userAddAppointment }
+
+    userModel.findOneAndUpdate({ _id: user_id }, { $pull: { userAppointments: userAppointments } }).then(result => {
+
+
+        res.status(200).json({
+            message: "succssess",
+            
+        })
+        let editiedObject = {
+            clientID: result.id,
+            clientName: doctorData.clientName,
+            clientPhoneNumber: doctorData.clientPhoneNumber
+        }
+        doctorModel.findByIdAndUpdate(userAppointments.doctorID, {$pull: { doctorAppointments: editiedObject } }).catch(e => {
+            res.status(400).json({
+                message: "there is error in adding appointment to doctor",
+                body: e
+            })
+        }).catch(e => {
+            res.status(400).json({
+                message: "there is error in adding appointment",
+                body: e
+            })
+        })
+
+    })
+
+
+}
+
+
+export { userRegister, userLogin, userProfile, userEditProfile, userAddAppointment, userRemoveAppointment }
