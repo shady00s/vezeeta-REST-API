@@ -18,6 +18,6 @@ UserRoutes.get('/user-doctor-search', searchController)
 UserRoutes.get('/user-profile/:id', UserVerifyToken, userProfile)
 UserRoutes.get('/user-doctor-profile/:id', getDoctorById)
 UserRoutes.post('/user-edit-profile/:id', upload.single('userProfileImagePath'), UserVerifyToken, userEditProfile)
-UserRoutes.post('/user-add-appointemt/:id', UserVerifyToken, userAddAppointment)
+UserRoutes.post('/user-add-appointment/:id', UserVerifyToken, userAddAppointment)
 
 export default UserRoutes

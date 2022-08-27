@@ -22,7 +22,7 @@ async function userRegister(req, res) {
 
     // if email is new
     if (!isEmailExisted) {
-       
+
         bcrypt.hash(userPassword, 12).then(hashedPassword => {
             cloudinary.uploader.upload_stream({ folder: "users-images" }, (err, results) => {
                 const userReg = new userModel({
@@ -105,7 +105,7 @@ function userEditProfile(req, res) {
     const userPassword = req.body.userPassword
     const userProfileImagePath = req.file
     const userAppointments = req.body.userAppointments
-    
+
 
     cloudinary.uploader.upload_stream({ folder: "users-images" }, (err, image => {
 
@@ -143,9 +143,10 @@ function userEditProfile(req, res) {
 
 function userAddAppointment(req, res) {
     const user_id = req.params.id
-    const userAppointments = req.body.userAppointments
-    const doctorData = req.body.doctorData
-
+    const data = req.body.data
+    const userAppointments = data.userAppointments
+    const doctorData = data.doctorData
+    console.log(doctorData)
 
     userModel.findOneAndUpdate(user_id, { $push: { userAppointments: userAppointments } }, { new: true }).then(result => {
 
