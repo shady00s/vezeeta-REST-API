@@ -105,6 +105,7 @@ function userEditProfile(req, res) {
     const userPassword = req.body.userPassword
     const userProfileImagePath = req.file
     const userAppointments = req.body.userAppointments
+    
 
     cloudinary.uploader.upload_stream({ folder: "users-images" }, (err, image => {
 

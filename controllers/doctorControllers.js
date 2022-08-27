@@ -1,6 +1,7 @@
 import doctorModel from "../models/doctorModel.js";
 import { doctorGenerator } from '../generators/doctorGenerators.js';
 import bcyrpt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from "dotenv"
 dotenv.config()
