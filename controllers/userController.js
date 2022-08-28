@@ -15,7 +15,7 @@ async function userRegister(req, res) {
     let email = req.body.userEmail
     let userAge = req.body.userAge
     let userProfileImagePath = req.file
-    let phoneNumber = req.body.phoneNumber 
+    let phoneNumber = req.body.phoneNumber
     let userAppointent = req.body.userAppointent
 
     let isEmailExisted = await userModel.findOne({ userEmail: email })
@@ -105,23 +105,42 @@ function userEditProfile(req, res) {
     const userEmail = req.body.userEmail
     const userPassword = req.body.userPassword
     const userProfileImagePath = req.file
-    const userAppointments = req.body.userAppointments
+    const phoneNumber = req.body.phoneNumber
 
+    if (userProfileImagePath !== undefined) {
+        cloudinary.uploader.upload_stream({ folder: "users-images" }, (err, image => {
 
-    cloudinary.uploader.upload_stream({ folder: "users-images" }, (err, image => {
+            if (err) {
+                res.status(500).json({
+                    message: "there is error in image uploading",
+                    body: err
+                })
+            }
+            const updatedUserData = {
+                userName: userName,
+                userEmail: userEmail,
+                userPassword: userPassword,
+                userProfileImagePath: image.url,
+                phoneNumber: phoneNumber
 
-        if (err) {
-            res.status(500).json({
-                message: "there is error in image uploading",
-                body: err
-            })
-        }
+            }
+
+            userModel.findByIdAndUpdate(user_id, updatedUserData, { new: true }).then(result =>
+                res.status(200).json({
+                    message: "succssess",
+                    body: result
+                })).catch(e => {
+                    res.status(400).json({
+                        message: "there is error in registration"
+                    })
+                })
+        })).end(userProfileImagePath.buffer)
+    } else {
         const updatedUserData = {
             userName: userName,
             userEmail: userEmail,
             userPassword: userPassword,
-            userProfileImagePath: userProfileImagePath,
-            userAppointments: userAppointments
+            phoneNumber: phoneNumber
         }
 
         userModel.findByIdAndUpdate(user_id, updatedUserData, { new: true }).then(result =>
@@ -133,7 +152,9 @@ function userEditProfile(req, res) {
                     message: "there is error in registration"
                 })
             })
-    })).end(userProfileImagePath.buffer)
+    }
+
+
 
 
 
@@ -191,14 +212,14 @@ function userRemoveAppointment(req, res) {
 
         res.status(200).json({
             message: "succssess",
-            
+
         })
         let editiedObject = {
             clientID: result.id,
             clientName: doctorData.clientName,
             clientPhoneNumber: doctorData.clientPhoneNumber
         }
-        doctorModel.findByIdAndUpdate(userAppointments.doctorID, {$pull: { doctorAppointments: editiedObject } }).catch(e => {
+        doctorModel.findByIdAndUpdate(userAppointments.doctorID, { $pull: { doctorAppointments: editiedObject } }).catch(e => {
             res.status(400).json({
                 message: "there is error in adding appointment to doctor",
                 body: e
