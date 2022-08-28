@@ -53,7 +53,7 @@ function adminLogin(req, res) {
     const email = req.body.adminEmail || ''
     const password = req.body.password || ''
     AdminModel.findOne({ adminEmail: email }).then(result => {
-        if (!result) {
+        if (result) {
             bcrypt.compare(password, result.password).then(compareResult => {
                 if (compareResult) {
                     const token = jwt.sign({ id: compareResult._id }, process.env.ADMIN_TOKEN_SECRET)
@@ -204,7 +204,6 @@ function getDeletedDoctors(req, res) {
         body: e
     }))
 }
-
 
 function adminEditDoctor(req, res) {
     const id = req.params.id;

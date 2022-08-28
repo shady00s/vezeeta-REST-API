@@ -85,9 +85,6 @@ async function doctorRegistrationController(req, res) {
 
 
 
-
-
-
     let isEmailExisted = await doctorModel.findOne({ doctorEmail: req.body.doctorEmail })
     if (!isEmailExisted) {
 
