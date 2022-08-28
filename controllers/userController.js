@@ -15,7 +15,7 @@ async function userRegister(req, res) {
     let email = req.body.userEmail
     let userAge = req.body.userAge
     let userProfileImagePath = req.file
-
+    let phoneNumber = req.body.phoneNumber 
     let userAppointent = req.body.userAppointent
 
     let isEmailExisted = await userModel.findOne({ userEmail: email })
@@ -31,7 +31,8 @@ async function userRegister(req, res) {
                     userEmail: email,
                     userAge: userAge,
                     userProfileImagePath: results.url,
-                    userAppointments: userAppointent
+                    userAppointments: userAppointent,
+                    phoneNumber: phoneNumber
                 })
 
                 userReg.save().then(result => {
