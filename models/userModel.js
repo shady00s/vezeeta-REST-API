@@ -34,6 +34,10 @@ const UserModel = mongoose.Schema({
     userLapAppointment:{
         type:Array,
         default:[]
+    },
+    phoneNumber:{
+        type:String,
+        require: true
     }
     
 })
