@@ -80,12 +80,12 @@ function doctorsByLocationAndSpecalizationController(req, res) {
 
 async function doctorRegistrationController(req, res) {
 
-    let profileImagePath = req.files.profileImagePath[0]
-    let certificateImagePath = req.files.certificateImagePath[0]
+    let profileImagePath = req.files.profileImagePath
+    let certificateImagePath = req.files.certificateImagePath
 
-    let clinicImagesPath = []
-    
-    
+
+
+
 
 
     let isEmailExisted = await doctorModel.findOne({ doctorEmail: req.body.doctorEmail })
@@ -141,8 +141,8 @@ async function doctorRegistrationController(req, res) {
                                     entity: req.body.entity,
                                     clinicWaitingTime: req.body.clinicWaitingTime,
                                     doctorAppointments: req.body.doctorAppointments,
-                                    phoneNumber:req.body.phoneNumber
-                                    
+                                    phoneNumber: req.body.phoneNumber
+
                                 });
                                 doctor.save().then(result => {
                                     res.status(200).json({
@@ -157,14 +157,14 @@ async function doctorRegistrationController(req, res) {
 
 
 
-                        }).end(req.file.clinicImagesPath3.buffer)
+                        }).end(req.files.clinicImagesPath3[0].buffer)
 
-                    }).end(req.file.clinicImagesPath2.buffer)
+                    }).end(req.files.clinicImagesPath2[0].buffer)
 
-                }).end(req.file.clinicImagesPath1.buffer)
+                }).end(req.files.clinicImagesPath1[0].buffer)
 
-            }).end(certificateImagePath.buffer)
-        }).end(profileImagePath.buffer)
+            }).end(certificateImagePath[0].buffer)
+        }).end(profileImagePath[0].buffer)
 
 
     }
