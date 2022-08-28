@@ -84,8 +84,8 @@ async function doctorRegistrationController(req, res) {
     let certificateImagePath = req.files.certificateImagePath[0]
 
     let clinicImagesPath = []
-
-    req.files.clinicImagesPath.forEach(element => clinicImagesPath.push(element.buffer));
+    
+    
 
 
     let isEmailExisted = await doctorModel.findOne({ doctorEmail: req.body.doctorEmail })
@@ -157,11 +157,11 @@ async function doctorRegistrationController(req, res) {
 
 
 
-                        }).end(clinicImagesPath[2])
+                        }).end(req.file.clinicImagesPath3.buffer)
 
-                    }).end(clinicImagesPath[1])
+                    }).end(req.file.clinicImagesPath2.buffer)
 
-                }).end(clinicImagesPath[0])
+                }).end(req.file.clinicImagesPath1.buffer)
 
             }).end(certificateImagePath.buffer)
         }).end(profileImagePath.buffer)
