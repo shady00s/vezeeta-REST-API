@@ -142,6 +142,7 @@ async function doctorRegistrationController(req, res) {
                                     clinicWaitingTime: req.body.clinicWaitingTime,
                                     doctorAppointments: req.body.doctorAppointments,
                                     phoneNumber:req.body.phoneNumber
+                                    
                                 });
                                 doctor.save().then(result => {
                                     res.status(200).json({
