@@ -85,7 +85,7 @@ async function doctorRegistrationController(req, res) {
 
     let doctorName = JSON.parse(req.body.doctorName)
     let doctorSpecialization = JSON.parse(req.body.doctorSpecialization)
-
+    let doctorClinics = JSON.parse(req.body.doctorClinics)
     let isEmailExisted = await doctorModel.findOne({ doctorEmail: req.body.doctorEmail })
     if (!isEmailExisted) {
 
@@ -131,7 +131,7 @@ async function doctorRegistrationController(req, res) {
                                     doctorGender: req.body.doctorGender,
                                     doctorSpecialization: { specialization_english: doctorSpecialization.specializationEnglish, specialization_arabic: doctorSpecialization.specializationArabic },
                                     doctorLocation: req.body.doctorLocation,
-                                    doctorClinics: [JSON.parse(...req.body.doctorClinics)],
+                                    doctorClinics: [...doctorClinics],
                                     profileImagePath: profileImagePath.url,
                                     certificateImagePath: certificateImagePath.url,
                                     clinicImagesPath: clinicImagesPathObject,
