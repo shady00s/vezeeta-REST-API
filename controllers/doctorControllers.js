@@ -129,7 +129,7 @@ async function doctorRegistrationController(req, res) {
                                     doctorEmail: req.body.doctorEmail,
                                     password: hashedPass,
                                     doctorGender: req.body.doctorGender,
-                                    doctorSpecialization: { specialization_english: doctorSpecialization.specializationEnglish, specialization_arabic: doctorSpecialization.specializationArabic },
+                                    doctorSpecialization: { specialization_english: doctorSpecialization.specialization_english, specialization_arabic: doctorSpecialization.specialization_arabic },
                                     doctorLocation: req.body.doctorLocation,
                                     doctorClinics: [...doctorClinics],
                                     profileImagePath: profileImagePath.url,
