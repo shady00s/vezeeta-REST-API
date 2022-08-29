@@ -124,13 +124,13 @@ async function doctorRegistrationController(req, res) {
                             clinicImagesPathObject.push({ "image": thirdClinicImagePath.url })
                             bcyrpt.hash(req.body.password, 12).then(hashedPass => {
                                 const doctor = new doctorModel({
-                                    doctorName: req.body.doctorName,
+                                    doctorName: JSON.parse(req.body.doctorName),
                                     doctorEmail: req.body.doctorEmail,
                                     password: hashedPass,
                                     doctorGender: req.body.doctorGender,
-                                    doctorSpecialization: req.body.doctorSpecialization,
+                                    doctorSpecialization:JSON.parse(req.body.doctorSpecialization) ,
                                     doctorLocation: req.body.doctorLocation,
-                                    doctorClinics: req.body.doctorClinics,
+                                    doctorClinics:JSON.parse(req.body.doctorClinics) ,
                                     profileImagePath: profileImagePath.url,
                                     certificateImagePath: certificateImagePath.url,
                                     clinicImagesPath: clinicImagesPathObject,
