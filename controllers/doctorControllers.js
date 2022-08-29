@@ -83,7 +83,8 @@ async function doctorRegistrationController(req, res) {
     let profileImagePath = req.files.profileImagePath
     let certificateImagePath = req.files.certificateImagePath
 
-
+    let doctorName = JSON.parse(req.body.doctorName)
+    let doctorSpecialization = JSON.parse(req.body.doctorSpecialization)
 
     let isEmailExisted = await doctorModel.findOne({ doctorEmail: req.body.doctorEmail })
     if (!isEmailExisted) {
@@ -124,13 +125,13 @@ async function doctorRegistrationController(req, res) {
                             clinicImagesPathObject.push({ "image": thirdClinicImagePath.url })
                             bcyrpt.hash(req.body.password, 12).then(hashedPass => {
                                 const doctor = new doctorModel({
-                                    doctorName: JSON.parse(req.body.doctorName),
+                                    doctorName: { arabicName: doctorName.arabicName, englishName: doctorName.englishName },
                                     doctorEmail: req.body.doctorEmail,
                                     password: hashedPass,
                                     doctorGender: req.body.doctorGender,
-                                    doctorSpecialization:JSON.parse(req.body.doctorSpecialization) ,
+                                    doctorSpecialization: { specialization_english: doctorSpecialization.specializationEnglish, specialization_arabic: doctorSpecialization.specializationArabic },
                                     doctorLocation: req.body.doctorLocation,
-                                    doctorClinics:JSON.parse(req.body.doctorClinics) ,
+                                    doctorClinics: [JSON.parse(...req.body.doctorClinics)],
                                     profileImagePath: profileImagePath.url,
                                     certificateImagePath: certificateImagePath.url,
                                     clinicImagesPath: clinicImagesPathObject,
