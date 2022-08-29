@@ -6,8 +6,6 @@ const doctorRoutes = Router()
 import upload from '../utils/multer.js';
 
 
-
-
 doctorRoutes.get('/doctors', doctorsByLocationAndSpecalizationController)
 
 doctorRoutes.get('/doctor-profile/:id', DoctorVerifyToken, getDoctorById)
